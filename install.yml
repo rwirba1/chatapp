@@ -26,18 +26,31 @@
         name: apache2
         state: present
       become: yes
+      
+   - name: Configure Apache virtual host
+     template:
+       src: chat.conf.j2
+       dest: /etc/apache2/sites-available/chat.conf
+    become: yes
+    notify:
+      - Enable Apache Virtual Host
+      - Enable Apache Modules
+      - Restart Apache2
 
-    - name: Configure Apache virtual host
-      template:
-        src: chat.conf.j2
-        dest: /etc/apache2/sites-available/chat.conf
-      become: yes
-      notify:
-        - Restart Apache2
+   - name: Enable Apache Virtual Host
+     command: a2ensite chat.conf
+     become: yes
+     notify:
+       - Restart Apache2
 
-  handlers:
-    - name: Restart Apache2
-      service:
-        name: apache2
-        state: restarted
+   - name: Enable Apache Modules
+     command: a2enmod proxy proxy_http
+     become: yes
+     notify:
+       - Restart Apache2
+
+   - name: Restart Apache2
+     service:
+       name: apache2
+       state: restarted
 
