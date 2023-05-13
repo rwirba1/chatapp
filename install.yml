@@ -14,12 +14,14 @@
         state: present
       become: yes
 
-    - name: Install Express and Socket.IO
-      npm:
-        name:
-          - express
-          - socket.io
-        global: yes
+    - name: Install Dependencies
+      command:
+        cmd: /usr/bin/npm
+        argv:
+           - install
+           - --global
+           - express
+           - socket.io
 
     - name: Install Apache2
       apt:
