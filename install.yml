@@ -1,6 +1,6 @@
 ---
 - name: Install Node.js and Apache2
-  hosts: localhost
+  hosts: all
 
   tasks:
     - name: Update apt package cache
