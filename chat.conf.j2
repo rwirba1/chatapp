@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+    ServerName your_domain_or_ip_address
+    DocumentRoot /var/www/chat
+
+    ProxyPass / http://localhost:8000/
+    ProxyPassReverse / http://localhost:8000/
+    
+    <Proxy *>
+        Order allow,deny
+        Allow from all
+    </Proxy>
+    
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
