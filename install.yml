@@ -1,5 +1,5 @@
 ---
-- name: Install Node.js dependencies
+- name: Install Node.js and Apache2
   hosts: your_target_host  # Replace with the target host or inventory group
 
   tasks:
@@ -20,3 +20,24 @@
           - express
           - socket.io
         global: yes
+
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+      become: yes
+
+    - name: Configure Apache virtual host
+      template:
+        src: chat.conf.j2
+        dest: /etc/apache2/sites-available/chat.conf
+      become: yes
+      notify:
+        - Restart Apache2
+
+  handlers:
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted
+
