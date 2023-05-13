@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-const port = 3000;
+const port = 8000;
 http.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
