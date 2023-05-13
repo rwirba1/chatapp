@@ -1,17 +1,8 @@
 ---
 - name: Install Node.js and Apache2
   hosts: all
-  become: true
-  become_user: root
 
   tasks:
-    - name: Print user running Ansible
-      command: whoami
-      register: result
-
-    - debug:
-        var: result.stdout
-        
     - name: Update apt package cache
       apt:
         update_cache: yes
