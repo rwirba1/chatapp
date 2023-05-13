@@ -1,0 +1,22 @@
+---
+- name: Install Node.js dependencies
+  hosts: your_target_host  # Replace with the target host or inventory group
+
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+      become: yes
+
+    - name: Install Node.js and npm
+      apt:
+        name: npm
+        state: present
+      become: yes
+
+    - name: Install Express and Socket.IO
+      npm:
+        name:
+          - express
+          - socket.io
+        global: yes
